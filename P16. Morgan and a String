@@ -1,0 +1,77 @@
+using System.CodeDom.Compiler;
+using System.Collections.Generic;
+using System.Collections;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
+using System.Text;
+using System;
+
+class Result
+{
+
+    /*
+     * Complete the 'morganAndString' function below.
+     *
+     * The function is expected to return a STRING.
+     * The function accepts following parameters:
+     *  1. STRING a
+     *  2. STRING b
+     */
+
+    public static string morganAndString(string a, string b)
+    {
+           int i = 0, j = 0;
+        int n = a.Length, m = b.Length;
+        StringBuilder result = new StringBuilder();
+
+        while (i < n && j < m)
+        {
+            if (string.Compare(a.Substring(i), b.Substring(j)) <= 0)
+            {
+                result.Append(a[i]);
+                i++;
+            }
+            else
+            {
+                result.Append(b[j]);
+                j++;
+            }
+        }
+
+        while (i < n) result.Append(a[i++]);
+        while (j < m) result.Append(b[j++]);
+
+        return result.ToString();
+    }
+
+}
+
+class Solution
+{
+    public static void Main(string[] args)
+    {
+        TextWriter textWriter = new StreamWriter(@System.Environment.GetEnvironmentVariable("OUTPUT_PATH"), true);
+
+        int t = Convert.ToInt32(Console.ReadLine().Trim());
+
+        for (int tItr = 0; tItr < t; tItr++)
+        {
+            string a = Console.ReadLine();
+
+            string b = Console.ReadLine();
+
+            string result = Result.morganAndString(a, b);
+
+            textWriter.WriteLine(result);
+        }
+
+        textWriter.Flush();
+        textWriter.Close();
+    }
+}
